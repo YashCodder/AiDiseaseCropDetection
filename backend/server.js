@@ -1,6 +1,13 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
+
+const OpenAI = require("openai");
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
+});
 
 const app = express();
 app.use(cors());
@@ -33,6 +40,50 @@ app.post("/soil", async (req, res) => {
     res.json(newPrediction);
   } catch (error) {
     res.status(500).json({ error: "AI service not reachable" });
+  }
+});
+
+app.post("/recommendation", async (req, res) => {
+  try {
+    // 🔥 safety check
+    if (!req.body) {
+      return res.status(400).json({ error: "No data received" });
+    }
+
+    const { temperature, humidity, ph, risk } = req.body;
+
+    if (
+      temperature === undefined ||
+      humidity === undefined ||
+      ph === undefined ||
+      risk === undefined
+    ) {
+      return res.status(400).json({ error: "Missing fields" });
+    }
+
+    const prompt = `
+    Soil Conditions:
+    Temperature: ${temperature}°C
+    Humidity: ${humidity}%
+    pH: ${ph}
+    Risk Level: ${risk}%
+
+    Give practical farming recommendations to reduce disease risk.
+    Keep it short and actionable.
+    `;
+
+    const response = await openai.chat.completions.create({
+      model: "gpt-4.1-mini",
+      messages: [{ role: "user", content: prompt }]
+    });
+
+    res.json({
+      recommendation: response.choices[0].message.content
+    });
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "AI recommendation failed" });
   }
 });
 
