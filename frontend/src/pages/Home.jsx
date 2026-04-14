@@ -31,7 +31,7 @@ export default function Home() {
 
           <FeatureCard 
             title="Predictive Analytics" 
-            desc="LSTM models predict disease outbreaks 7–21 days in advance."
+            desc="LSTM models predict disease outbreaks 7-21 days in advance."
             icon="📊"
           />
         </div>
@@ -103,7 +103,7 @@ export default function Home() {
               "This system helped me detect disease early and saved my wheat crop. 
               I reduced pesticide usage significantly."
             </p>
-            <h4>– Ramesh Kumar, Punjab</h4>
+            <h4>- Ramesh Kumar, Punjab</h4>
           </div>
 
           <div className="testimonial">
@@ -111,7 +111,7 @@ export default function Home() {
               "The prediction feature is amazing. I got alerts before disease spread 
               and increased my yield by almost 20%."
             </p>
-            <h4>– Suresh Patel, Gujarat</h4>
+            <h4>- Suresh Patel, Gujarat</h4>
           </div>
 
           <div className="testimonial">
@@ -119,7 +119,7 @@ export default function Home() {
               "Very easy to use and helpful. Even without technical knowledge, 
               I can understand the results."
             </p>
-            <h4>– Meena Devi, Haryana</h4>
+            <h4>- Meena Devi, Haryana</h4>
           </div>
 
         </div>
